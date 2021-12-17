@@ -6,6 +6,7 @@ import com.openpayd.exchange.integration.adapter.rest.exchangerate.response.Exch
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
 @Component
@@ -22,11 +23,16 @@ public class ExchangeRateRestAdapter implements ExchangeRateDrivenPort {
     public ExchangeRatePortOutputDTO getExchangeRates(String date, String baseCurrency, String targetCurrency) {
 
 
+        if(!StringUtils.hasText(date))
+        {
+            date = "latest";
+        }
+
         ExchangeRatePortOutputDTO exchangeRatePortOutputDTO = new ExchangeRatePortOutputDTO();
 
 
         RestTemplate restTemplate = new RestTemplate();
-        String resourceExcahngeRateUrl = baseUrl + "/" + date + "?" + accessKey + "&symbols=" + baseCurrency + "," + targetCurrency;
+        String resourceExcahngeRateUrl = baseUrl + date + "?" + accessKey + "&symbols=" + baseCurrency + "," + targetCurrency;
 
         ResponseEntity<ExchangeRateRestResponse> exchangeRateRestResponseEntity = restTemplate.getForEntity(resourceExcahngeRateUrl, ExchangeRateRestResponse.class);
 
