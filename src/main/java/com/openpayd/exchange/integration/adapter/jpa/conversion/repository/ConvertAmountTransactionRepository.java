@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ConvertAmountTransactionRepository extends JpaRepository<ConvertAmountTransactionEntity, String>, JpaSpecificationExecutor<ConvertAmountTransactionEntity> {
+
 }

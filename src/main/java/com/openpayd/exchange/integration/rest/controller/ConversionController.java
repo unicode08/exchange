@@ -8,10 +8,9 @@ import com.openpayd.exchange.integration.common.mapper.ConvertAmountRequestMappe
 import com.openpayd.exchange.integration.common.mapper.ConvertAmountResponseMapper;
 import com.openpayd.exchange.integration.rest.request.ConvertAmountRequest;
 import com.openpayd.exchange.integration.rest.response.ConvertAmountResponse;
+import com.openpayd.exchange.integration.rest.response.ConvertedAmountInfoResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class ConversionController {
@@ -28,6 +27,15 @@ public class ConversionController {
         ConvertAmountInputDTO convertAmountInputDTO = ConvertAmountRequestMapper.convertAmountRequestMapper.convertRequestToDomainModel(convertAmountRequest);
         ConversionDrivingPort conversionDrivingPort = new ConversionDrivingPort(convertAmountDataAdapter, exchangeRateRestAdapter);
         return ConvertAmountResponseMapper.convertAmountResponseMapper.convertDomainModelToResponse(conversionDrivingPort.convertAmount(convertAmountInputDTO));
+    }
+
+    @GetMapping("/api/getconvertedamountinfo")
+    public ConvertedAmountInfoResponse getConvertedAmountInfo(@RequestParam(name = "id", required = false) String transactionId, @RequestParam(name = "date" ,required = false) String transactionDate, @RequestParam(name = "page", required = false) Integer page, @RequestParam(name = "pageSize", required = false) Integer pageSize) {
+        ConversionDrivingPort conversionDrivingPort = new ConversionDrivingPort(convertAmountDataAdapter, exchangeRateRestAdapter);
+        ConvertedAmountInfoResponse convertedAmountInfoResponse = new ConvertedAmountInfoResponse();
+        convertedAmountInfoResponse.setConvertAmountResponseList(ConvertAmountResponseMapper.convertAmountResponseMapper.convertDomainModelToResponseList(conversionDrivingPort.getConvertedAmountInfo(transactionId, transactionDate, page, pageSize)));
+        return convertedAmountInfoResponse;
+
     }
 
 

@@ -1,14 +1,12 @@
 package com.openpayd.exchange.integration.rest.controller;
-import com.google.common.collect.Maps;
 
 import com.openpayd.exchange.domain.data.ExchangeRatePortOutputDTO;
 import com.openpayd.exchange.integration.AbstractIT;
-import com.openpayd.exchange.integration.adapter.rest.exchangerate.ExchangeRateRestAdapter;
 import com.openpayd.exchange.integration.rest.request.ConvertAmountRequest;
 import com.openpayd.exchange.integration.rest.response.ConvertAmountResponse;
+import com.openpayd.exchange.integration.rest.response.ConvertedAmountInfoResponse;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -17,9 +15,6 @@ import java.util.Map;
 
 class ConversionControllerTest extends AbstractIT {
 
-
-    @MockBean
-    ExchangeRateRestAdapter exchangeRateRestAdapter;
 
     @Test
     public void whenValidInputGiven_convertAmount_thenReturnNoException() {
@@ -30,8 +25,9 @@ class ConversionControllerTest extends AbstractIT {
         currencyRateMap.put("EUR", 1D);
         exchangeRatePortOutputDTO.setBaseTargetCurrencyPair(currencyRateMap);
         exchangeRatePortOutputDTO.setDate("DEF");
+        Mockito.when(exchangeRateRestAdapter.getExchangeRates(null, "EUR", "USD")).thenReturn(exchangeRatePortOutputDTO);
 
-        Mockito.when(exchangeRateRestAdapter.getExchangeRates(null,"EUR","USD")).thenReturn(exchangeRatePortOutputDTO);
+
         ConvertAmountRequest convertAmountRequest = new ConvertAmountRequest();
         convertAmountRequest.setFromCurrency("EUR");
         convertAmountRequest.setToCurrency("USD");
@@ -41,8 +37,19 @@ class ConversionControllerTest extends AbstractIT {
 
         assertAll(
                 () -> assertEquals(HttpStatus.OK, convertAmountResponseResponseEntity.getStatusCode()),
-                () -> assertEquals(11.33793, convertAmountResponseResponseEntity.getBody().getAmount())
+                () -> assertEquals(11.33793, convertAmountResponseResponseEntity.getBody().getConvertedAmount())
         );
+    }
+
+
+    @Test
+    public void whenValidInputGiven_getConvertedAmountInfo_thenReturnNoException() {
+        ResponseEntity<ConvertedAmountInfoResponse> convertedAmountInfoResponseResponseEntity = testRestTemplate.getForEntity("/api/getconvertedamountinfo?id=1&page=0&pageSize=10", ConvertedAmountInfoResponse.class);
+        assertAll(
+                () -> assertEquals(HttpStatus.OK, convertedAmountInfoResponseResponseEntity.getStatusCode()),
+                () -> assertEquals("1", convertedAmountInfoResponseResponseEntity.getBody().getConvertAmountResponseList().get(0).getId())
+        );
+
     }
 
 }

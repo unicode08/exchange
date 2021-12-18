@@ -42,7 +42,7 @@ class ConversionDrivingPortTest extends AbstractUT {
         convertAmountInputDTO.setToCurrency("TRY");
         convertAmountInputDTO.setConversionAmount(10D);
         ConvertAmountOutputDTO convertAmountOutputDTO = conversionDrivingPort.convertAmount(convertAmountInputDTO);
-        assertEquals(156.64262347712503, convertAmountOutputDTO.getAmount());
+        assertEquals(156.64262347712503, convertAmountOutputDTO.getConvertedAmount());
     }
 
 }
