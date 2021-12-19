@@ -6,6 +6,8 @@ import com.openpayd.exchange.domain.data.ConvertAmountTransactionDTO;
 import com.openpayd.exchange.domain.data.ExchangeRatePortOutputDTO;
 import com.openpayd.exchange.domain.port.driven.ConvertAmountDataPort;
 import com.openpayd.exchange.domain.port.driven.ExchangeRateDrivenPort;
+import com.openpayd.exchange.domain.util.DateUtil;
+import org.springframework.util.StringUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -32,8 +34,15 @@ public class ConvertAmount {
     }
 
     public List<ConvertAmountTransactionDTO> getConvertedAmountInfo(String transactionId, String transactionDate, Integer page, Integer pageSize) throws ParseException {
-        SimpleDateFormat sdf = new SimpleDateFormat("YYYY-mm-dd");
-        return convertAmountDataPort.getConvertedAmountTransactionDTOListByTransactionIdOrTransactionDate(transactionId, sdf.parse(transactionDate), page, pageSize);
+
+        Date transaction = null;
+
+        if (StringUtils.hasText(transactionDate)) {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            transaction = DateUtil.truncate(sdf.parse(transactionDate));
+        }
+
+        return convertAmountDataPort.getConvertedAmountTransactionDTOListByTransactionIdOrTransactionDate(transactionId, transaction, page, pageSize);
     }
 
     private ConvertAmountOutputDTO createConvertAmountOutput(ConvertAmountInputDTO convertAmountInputDTO, Double amount, String transactionGuid) {

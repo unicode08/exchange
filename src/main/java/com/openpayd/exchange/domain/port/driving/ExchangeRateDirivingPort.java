@@ -2,6 +2,7 @@ package com.openpayd.exchange.domain.port.driving;
 
 import com.openpayd.exchange.domain.data.ExchangeRateInputDTO;
 import com.openpayd.exchange.domain.data.ExchangeRateOutputDTO;
+import com.openpayd.exchange.domain.exception.ExchangeRateException;
 import com.openpayd.exchange.domain.model.exchangerate.ExchangeRate;
 import com.openpayd.exchange.domain.port.driven.ExchangeRateDrivenPort;
 
@@ -14,7 +15,7 @@ public class ExchangeRateDirivingPort {
         exchangeRate = new ExchangeRate(exchangeRateDrivenPort);
     }
 
-    public ExchangeRateOutputDTO getExchangeRate(ExchangeRateInputDTO exchangeRateInputDTO) {
+    public ExchangeRateOutputDTO getExchangeRate(ExchangeRateInputDTO exchangeRateInputDTO) throws ExchangeRateException {
         return exchangeRate.getExchangeRate(exchangeRateInputDTO);
     }
 }

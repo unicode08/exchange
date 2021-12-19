@@ -2,6 +2,7 @@ package com.openpayd.exchange.integration.rest.controller;
 
 import com.openpayd.exchange.domain.data.ExchangeRateInputDTO;
 import com.openpayd.exchange.domain.data.ExchangeRateOutputDTO;
+import com.openpayd.exchange.domain.exception.ExchangeRateException;
 import com.openpayd.exchange.domain.port.driving.ExchangeRateDirivingPort;
 import com.openpayd.exchange.integration.adapter.rest.exchangerate.ExchangeRateRestAdapter;
 import com.openpayd.exchange.integration.common.mapper.ExchangeRateResponseMapper;
@@ -18,7 +19,8 @@ public class ExchangeRateController {
     private ExchangeRateRestAdapter exchangeRateRestAdapter;
 
     @GetMapping("/api/getexchangerate")
-    public ExchangeRateResponse getExchangeRate(@RequestParam(name = "base") String baseCurrency, @RequestParam(name = "target") String targetCurrency, @RequestParam(name = "date") String date) {
+    public ExchangeRateResponse getExchangeRate(@RequestParam(name = "base") String baseCurrency, @RequestParam(name = "target") String targetCurrency, @RequestParam(name = "date") String date)
+    throws ExchangeRateException {
         ExchangeRateDirivingPort exchangeRateDirivingPort = new ExchangeRateDirivingPort(exchangeRateRestAdapter);
         ExchangeRateInputDTO exchangeRateInputDTO = new ExchangeRateInputDTO();
         exchangeRateInputDTO.setBaseCurrency(baseCurrency);

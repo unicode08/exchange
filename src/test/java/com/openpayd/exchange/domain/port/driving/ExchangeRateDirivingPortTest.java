@@ -5,6 +5,7 @@ import com.openpayd.exchange.domain.adapter.ExchangeRateDrivenPortFakeAdapter;
 import com.openpayd.exchange.domain.data.ExchangeRateInputDTO;
 import com.openpayd.exchange.domain.data.ExchangeRateOutputDTO;
 import com.openpayd.exchange.domain.data.ExchangeRatePortOutputDTO;
+import com.openpayd.exchange.domain.exception.ExchangeRateException;
 import com.openpayd.exchange.domain.port.driven.ExchangeRateDrivenPort;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -25,18 +26,18 @@ class ExchangeRateDirivingPortTest extends AbstractUT {
         currencyRateMap.put("USD", 1.133793);
         currencyRateMap.put("TRY", 17.760031);
         exchangeRatePortOutputDTO.setBaseTargetCurrencyPair(currencyRateMap);
-        exchangeRatePortOutputDTO.setDate("2021-16-12");
+        exchangeRatePortOutputDTO.setDate("2021-12-03");
         exchangeRateDrivenPort = new ExchangeRateDrivenPortFakeAdapter(exchangeRatePortOutputDTO);
         exchangeRateDirivingPort = new ExchangeRateDirivingPort(exchangeRateDrivenPort);
     }
 
     @Test
-    public void whenValidInputGiven_getExchangeRate_thenReturnNoException() {
+    public void whenValidInputGiven_getExchangeRate_thenReturnNoException() throws ExchangeRateException {
 
         ExchangeRateInputDTO exchangeRateInputDTO = new ExchangeRateInputDTO();
         exchangeRateInputDTO.setBaseCurrency("TRY");
         exchangeRateInputDTO.setTargetCurrency("USD");
-        exchangeRateInputDTO.setDate("2021-16-12");
+        exchangeRateInputDTO.setDate("2021-12-03");
 
         ExchangeRateOutputDTO exchangeRateOutputDTO = exchangeRateDirivingPort.getExchangeRate(exchangeRateInputDTO);
         assertAll(
