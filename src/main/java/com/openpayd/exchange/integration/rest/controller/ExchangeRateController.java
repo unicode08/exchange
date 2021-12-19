@@ -19,13 +19,12 @@ public class ExchangeRateController {
     private ExchangeRateRestAdapter exchangeRateRestAdapter;
 
     @GetMapping("/api/getexchangerate")
-    public ExchangeRateResponse getExchangeRate(@RequestParam(name = "base") String baseCurrency, @RequestParam(name = "target") String targetCurrency, @RequestParam(name = "date") String date)
-    throws ExchangeRateException {
+    public ExchangeRateResponse getExchangeRate(@RequestParam(name = "base") String baseCurrency, @RequestParam(name = "target") String targetCurrency)
+            throws ExchangeRateException {
         ExchangeRateDirivingPort exchangeRateDirivingPort = new ExchangeRateDirivingPort(exchangeRateRestAdapter);
         ExchangeRateInputDTO exchangeRateInputDTO = new ExchangeRateInputDTO();
         exchangeRateInputDTO.setBaseCurrency(baseCurrency);
         exchangeRateInputDTO.setTargetCurrency(targetCurrency);
-        exchangeRateInputDTO.setDate(date);
         ExchangeRateOutputDTO exchangeRateOutputDTO = exchangeRateDirivingPort.getExchangeRate(exchangeRateInputDTO);
         return ExchangeRateResponseMapper.exchangeRateResponseMapper.convertDomainModelToResponse(exchangeRateOutputDTO);
     }

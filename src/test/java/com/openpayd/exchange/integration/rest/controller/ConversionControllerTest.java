@@ -44,7 +44,7 @@ class ConversionControllerTest extends AbstractIT {
 
     @Test
     public void whenValidInputGiven_getConvertedAmountInfoWithId_thenReturnNoException() {
-        ResponseEntity<ConvertedAmountInfoResponse> convertedAmountInfoResponseResponseEntity = testRestTemplate.getForEntity("/api/getconvertedamountinfo?id=1&page=0&pageSize=10", ConvertedAmountInfoResponse.class);
+        ResponseEntity<ConvertedAmountInfoResponse> convertedAmountInfoResponseResponseEntity = testRestTemplate.getForEntity("/api/getconvertedamountinfo?id=1&page=1&pageSize=10", ConvertedAmountInfoResponse.class);
         assertAll(
                 () -> assertEquals(HttpStatus.OK, convertedAmountInfoResponseResponseEntity.getStatusCode()),
                 () -> assertEquals("1", convertedAmountInfoResponseResponseEntity.getBody().getConvertAmountResponseList().get(0).getId())
@@ -54,10 +54,10 @@ class ConversionControllerTest extends AbstractIT {
 
     @Test
     public void whenValidInputGiven_getConvertedAmountInfoWithDate_thenReturnNoException() {
-        ResponseEntity<ConvertedAmountInfoResponse> convertedAmountInfoResponseResponseEntity = testRestTemplate.getForEntity("/api/getconvertedamountinfo?date=2020-02-03&page=0&pageSize=10", ConvertedAmountInfoResponse.class);
+        ResponseEntity<ConvertedAmountInfoResponse> convertedAmountInfoResponseResponseEntity = testRestTemplate.getForEntity("/api/getconvertedamountinfo?date=2020-02-03&page=1&pageSize=10", ConvertedAmountInfoResponse.class);
         assertAll(
                 () -> assertEquals(HttpStatus.OK, convertedAmountInfoResponseResponseEntity.getStatusCode()),
-                () -> assertTrue(!convertedAmountInfoResponseResponseEntity.getBody().getConvertAmountResponseList().isEmpty())
+                () -> assertEquals(10,convertedAmountInfoResponseResponseEntity.getBody().getConvertAmountResponseList().size())
         );
 
     }

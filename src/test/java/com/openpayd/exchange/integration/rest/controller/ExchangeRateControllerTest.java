@@ -25,10 +25,10 @@ public class ExchangeRateControllerTest extends AbstractIT {
         currencyRateMap.put("EUR", 1D);
         exchangeRatePortOutputDTO.setBaseTargetCurrencyPair(currencyRateMap);
         exchangeRatePortOutputDTO.setDate("DEF");
-        Mockito.when(exchangeRateRestAdapter.getExchangeRates("2021-12-14", "EUR", "USD")).thenReturn(exchangeRatePortOutputDTO);
+        Mockito.when(exchangeRateRestAdapter.getExchangeRates(null, "EUR", "USD")).thenReturn(exchangeRatePortOutputDTO);
 
 
-        ResponseEntity<ExchangeRateResponse> exchangeRateResponseResponseEntity = testRestTemplate.getForEntity("/api/getexchangerate?base=EUR&target=USD&date=2021-12-14", ExchangeRateResponse.class);
+        ResponseEntity<ExchangeRateResponse> exchangeRateResponseResponseEntity = testRestTemplate.getForEntity("/api/getexchangerate?base=EUR&target=USD", ExchangeRateResponse.class);
 
 
         assertAll(
@@ -38,26 +38,6 @@ public class ExchangeRateControllerTest extends AbstractIT {
 
     }
 
-    @Test
-    public void whenInValidInputGiven_getExchangeRateWithInvalidDate_thenReturnHttpBadRequest() {
-
-        ExchangeRatePortOutputDTO exchangeRatePortOutputDTO = new ExchangeRatePortOutputDTO();
-        Map<String, Double> currencyRateMap = new HashMap<String, Double>();
-        currencyRateMap.put("USD", 1.133793);
-        currencyRateMap.put("EUR", 1D);
-        exchangeRatePortOutputDTO.setBaseTargetCurrencyPair(currencyRateMap);
-        exchangeRatePortOutputDTO.setDate("DEF");
-        Mockito.when(exchangeRateRestAdapter.getExchangeRates("2021-12-14", "EUR", "USD")).thenReturn(exchangeRatePortOutputDTO);
-
-        ResponseEntity<ExceptionResponse> exchangeRateResponseResponseEntity = testRestTemplate.getForEntity("/api/getexchangerate?base=EUR&target=USD&date=2021-122-14", ExceptionResponse.class);
-
-
-        assertAll(
-                () -> assertEquals(HttpStatus.BAD_REQUEST, exchangeRateResponseResponseEntity.getStatusCode()),
-                () -> assertEquals(ExchangeRateExceptionDefinition.EXCHANGE_RATE_INVALID_DATE_FORMAT, exchangeRateResponseResponseEntity.getBody().getExceptionMessage())
-        );
-
-    }
 
     @Test
     public void whenInValidInputGiven_getExchangeRateWithBadCurrenyInput_thenReturnHttpConflict() {
@@ -65,9 +45,9 @@ public class ExchangeRateControllerTest extends AbstractIT {
         ExchangeRatePortOutputDTO exchangeRatePortOutputDTO = new ExchangeRatePortOutputDTO();
         exchangeRatePortOutputDTO.setBaseTargetCurrencyPair(null);
         exchangeRatePortOutputDTO.setDate("DEF");
-        Mockito.when(exchangeRateRestAdapter.getExchangeRates("2021-12-14", "EURK", "USDK")).thenReturn(exchangeRatePortOutputDTO);
+        Mockito.when(exchangeRateRestAdapter.getExchangeRates(null, "EURK", "USDK")).thenReturn(exchangeRatePortOutputDTO);
 
-        ResponseEntity<ExceptionResponse> exchangeRateResponseResponseEntity = testRestTemplate.getForEntity("/api/getexchangerate?base=EURK&target=USDK&date=2021-12-14", ExceptionResponse.class);
+        ResponseEntity<ExceptionResponse> exchangeRateResponseResponseEntity = testRestTemplate.getForEntity("/api/getexchangerate?base=EURK&target=USDK", ExceptionResponse.class);
 
 
         assertAll(
@@ -85,9 +65,9 @@ public class ExchangeRateControllerTest extends AbstractIT {
         currencyRateMap.put("EUR", 1D);
         exchangeRatePortOutputDTO.setBaseTargetCurrencyPair(currencyRateMap);
         exchangeRatePortOutputDTO.setDate("DEF");
-        Mockito.when(exchangeRateRestAdapter.getExchangeRates("2021-12-14", "EUR", "USDK")).thenReturn(exchangeRatePortOutputDTO);
+        Mockito.when(exchangeRateRestAdapter.getExchangeRates(null, "EUR", "USDK")).thenReturn(exchangeRatePortOutputDTO);
 
-        ResponseEntity<ExceptionResponse> exchangeRateResponseResponseEntity = testRestTemplate.getForEntity("/api/getexchangerate?base=EUR&target=USDK&date=2021-12-14", ExceptionResponse.class);
+        ResponseEntity<ExceptionResponse> exchangeRateResponseResponseEntity = testRestTemplate.getForEntity("/api/getexchangerate?base=EUR&target=USDK", ExceptionResponse.class);
 
 
         assertAll(

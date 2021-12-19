@@ -6,6 +6,7 @@ import com.openpayd.exchange.domain.data.ExchangeRateOutputDTO;
 import com.openpayd.exchange.domain.data.ExchangeRatePortOutputDTO;
 import com.openpayd.exchange.domain.exception.ExchangeRateException;
 import com.openpayd.exchange.domain.port.driven.ExchangeRateDrivenPort;
+import org.springframework.util.StringUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -36,14 +37,15 @@ public class ExchangeRate {
     }
 
     private void validateInput(ExchangeRateInputDTO exchangeRateInputDTO) throws ExchangeRateException {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            sdf.setLenient(false);
-            sdf.parse(exchangeRateInputDTO.getDate());
-        } catch (ParseException ex) {
-            throw new ExchangeRateException(ExchangeRateExceptionDefinition.EXCHANGE_RATE_INVALID_DATE_FORMAT);
+        if (StringUtils.hasText(exchangeRateInputDTO.getDate())) {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                sdf.setLenient(false);
+                sdf.parse(exchangeRateInputDTO.getDate());
+            } catch (ParseException ex) {
+                throw new ExchangeRateException(ExchangeRateExceptionDefinition.EXCHANGE_RATE_INVALID_DATE_FORMAT);
+            }
         }
-
     }
 
     private double calculateParity(String baseCurrency, String targetCurrency, ExchangeRatePortOutputDTO exchangeRatePortOutputDTO) throws ExchangeRateException {

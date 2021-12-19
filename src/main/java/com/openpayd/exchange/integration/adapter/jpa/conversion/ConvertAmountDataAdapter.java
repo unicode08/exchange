@@ -35,7 +35,7 @@ public class ConvertAmountDataAdapter implements ConvertAmountDataPort {
     @Override
     public List<ConvertAmountTransactionDTO> getConvertedAmountTransactionDTOListByTransactionIdOrTransactionDate(String transactionId, Date transactionDate, Integer page, Integer pageSize) {
 
-        Pageable pageable = PageRequest.of(page, pageSize, Sort.by("id").descending());
+        Pageable pageable = PageRequest.of(page-1, pageSize, Sort.by("id").descending());
 
         Specification<ConvertAmountTransactionEntity> convertAmountTransactionEntitySpecification = (root, query, criteriaBuilder) ->
         {

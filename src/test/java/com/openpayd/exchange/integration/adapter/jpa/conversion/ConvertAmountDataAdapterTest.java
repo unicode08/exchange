@@ -25,7 +25,7 @@ class ConvertAmountDataAdapterTest extends AbstractIT {
 
     @Test
     public void whenValidInputGiven_getConvertedAmountInfoById_thenReturnNoException() {
-        List<ConvertAmountTransactionDTO> convertAmountTransactionDTOList = convertAmountDataAdapter.getConvertedAmountTransactionDTOListByTransactionIdOrTransactionDate("1", null,0,10);
+        List<ConvertAmountTransactionDTO> convertAmountTransactionDTOList = convertAmountDataAdapter.getConvertedAmountTransactionDTOListByTransactionIdOrTransactionDate("1", null,1,10);
         assertTrue(convertAmountTransactionDTOList != null && !convertAmountTransactionDTOList.isEmpty());
     }
 
@@ -34,7 +34,7 @@ class ConvertAmountDataAdapterTest extends AbstractIT {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date date = sdf.parse("2020-02-03");
         DateUtil.truncateTime(date);
-        List<ConvertAmountTransactionDTO> convertAmountTransactionDTOList = convertAmountDataAdapter.getConvertedAmountTransactionDTOListByTransactionIdOrTransactionDate(null, date,0,10);
+        List<ConvertAmountTransactionDTO> convertAmountTransactionDTOList = convertAmountDataAdapter.getConvertedAmountTransactionDTOListByTransactionIdOrTransactionDate(null, date,1,10);
         assertTrue(convertAmountTransactionDTOList != null && !convertAmountTransactionDTOList.isEmpty());
     }
 }

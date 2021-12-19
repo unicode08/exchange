@@ -23,7 +23,6 @@ public class ConvertAmountDataPortFakeAdapter implements ConvertAmountDataPort {
         convertAmountTransactionDTO.setConversionAmount(10D);
         convertAmountTransactionDTO.setConvertedAmount(12D);
         convertAmountTransactionDTO.setTransactionDate(new Date());
-
         convertAmountTransactionDTOList.add(convertAmountTransactionDTO);
         return convertAmountTransactionDTOList;
     }

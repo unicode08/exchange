@@ -1,6 +1,7 @@
 package com.openpayd.exchange.integration.rest.controller;
 
 import com.openpayd.exchange.domain.data.ConvertAmountInputDTO;
+import com.openpayd.exchange.domain.exception.ConvertAmountException;
 import com.openpayd.exchange.domain.port.driving.ConversionDrivingPort;
 import com.openpayd.exchange.integration.adapter.jpa.conversion.ConvertAmountDataAdapter;
 import com.openpayd.exchange.integration.adapter.rest.exchangerate.ExchangeRateRestAdapter;
@@ -23,14 +24,14 @@ public class ConversionController {
 
 
     @PostMapping("/api/convertamount")
-    public ConvertAmountResponse convertAmount(@RequestBody ConvertAmountRequest convertAmountRequest) {
+    public ConvertAmountResponse convertAmount(@RequestBody ConvertAmountRequest convertAmountRequest) throws ConvertAmountException {
         ConvertAmountInputDTO convertAmountInputDTO = ConvertAmountRequestMapper.convertAmountRequestMapper.convertRequestToDomainModel(convertAmountRequest);
         ConversionDrivingPort conversionDrivingPort = new ConversionDrivingPort(convertAmountDataAdapter, exchangeRateRestAdapter);
         return ConvertAmountResponseMapper.convertAmountResponseMapper.convertDomainModelToResponse(conversionDrivingPort.convertAmount(convertAmountInputDTO));
     }
 
     @GetMapping("/api/getconvertedamountinfo")
-    public ConvertedAmountInfoResponse getConvertedAmountInfo(@RequestParam(name = "id", required = false) String transactionId, @RequestParam(name = "date" ,required = false) String transactionDate, @RequestParam(name = "page", required = false) Integer page, @RequestParam(name = "pageSize", required = false) Integer pageSize) {
+    public ConvertedAmountInfoResponse getConvertedAmountInfo(@RequestParam(name = "id", required = false) String transactionId, @RequestParam(name = "date", required = false) String transactionDate, @RequestParam(name = "page", required = false) Integer page, @RequestParam(name = "pageSize", required = false) Integer pageSize) throws ConvertAmountException {
         ConversionDrivingPort conversionDrivingPort = new ConversionDrivingPort(convertAmountDataAdapter, exchangeRateRestAdapter);
         ConvertedAmountInfoResponse convertedAmountInfoResponse = new ConvertedAmountInfoResponse();
         convertedAmountInfoResponse.setConvertAmountResponseList(ConvertAmountResponseMapper.convertAmountResponseMapper.convertDomainModelToResponseList(conversionDrivingPort.getConvertedAmountInfo(transactionId, transactionDate, page, pageSize)));
