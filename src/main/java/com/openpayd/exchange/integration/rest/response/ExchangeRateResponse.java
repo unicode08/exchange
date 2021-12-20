@@ -10,6 +10,5 @@ import lombok.Setter;
 public class ExchangeRateResponse {
     private String baseCurrency;
     private String targetCurrency;
-    private String date;
     private double rate;
 }

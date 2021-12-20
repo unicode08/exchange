@@ -9,6 +9,7 @@ import com.openpayd.exchange.domain.exception.ConvertAmountException;
 import com.openpayd.exchange.domain.model.convertamount.ConvertAmount;
 import com.openpayd.exchange.domain.port.driven.ConvertAmountDataPort;
 import com.openpayd.exchange.domain.port.driven.ExchangeRateDrivenPort;
+import com.openpayd.exchange.domain.util.DateUtil;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
@@ -64,7 +65,7 @@ public class ConvertAmountImpl extends ConvertAmount {
         convertAmountTransactionDTO.setToCurrency(convertAmountInputDTO.getToCurrency());
         convertAmountTransactionDTO.setConversionAmount(convertAmountInputDTO.getConversionAmount());
         convertAmountTransactionDTO.setConvertedAmount(convertedAmount);
-        convertAmountTransactionDTO.setTransactionDate(transactionDate);
+        convertAmountTransactionDTO.setTransactionDate(DateUtil.truncate(transactionDate));
         convertAmountDataPort.save(convertAmountTransactionDTO);
     }
 
