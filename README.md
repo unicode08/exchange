@@ -3,11 +3,11 @@
 This project provides currency related operations such as party inquiry,convert amount and getting converted amount information.
 The project is production-ready implementation of Domain Driven Design via Hexagonal Architecture (aka Ports And Adapters Pattern) written in Java.
 
-[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=hex&metric=ncloc)](https://sonarcloud.io/dashboard?id=unicode08_exchange)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=hex&metric=coverage)](https://sonarcloud.io/dashboard?id=unicode08_exchange)
-[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=hex&metric=sqale_index)](https://sonarcloud.io/dashboard?id=unicode08_exchange)
-[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=hex&metric=code_smells)](https://sonarcloud.io/dashboard?id=unicode08_exchange)
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=hex&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=unicode08_exchange)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=unicode08_exchange&metric=ncloc)](https://sonarcloud.io/dashboard?id=unicode08_exchange)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=unicode08_exchange&metric=coverage)](https://sonarcloud.io/dashboard?id=unicode08_exchange)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=unicode08_exchange&metric=sqale_index)](https://sonarcloud.io/dashboard?id=unicode08_exchange)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=unicode08_exchange&metric=code_smells)](https://sonarcloud.io/dashboard?id=unicode08_exchange)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=unicode08_exchange&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=unicode08_exchange)
 
 ---
 
