@@ -13,7 +13,7 @@ The project is production-ready implementation of Domain Driven Design via Hexag
 ---
 
 ### Hexagonal Architecture Flow Diagram
-[![Hexagonal Architecture Flow Diagram](docs/images/hexagonal-flow-diagram_sm.jpg)](docs/images/hexagonal-flow-diagram.jpg)
+[![Hexagonal Architecture Flow Diagram](docs/images/hex.png)](docs/images/hex.png)
 
 ### Technologies Used
 
