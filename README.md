@@ -1,7 +1,7 @@
 # Exchange Api Project
 
 This project provides currency related operations such as party inquiry,convert amount and getting converted amount information.
-The project is production-ready implementation of Domain Driven Design via Hexagonal Architecture (aka Ports And Adapters Pattern) written in Java.
+The project is implementation of Domain Driven Design via Hexagonal Architecture (aka Ports And Adapters Pattern) written in Java.
 
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=unicode08_exchange&metric=ncloc)](https://sonarcloud.io/dashboard?id=unicode08_exchange)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=unicode08_exchange&metric=coverage)](https://sonarcloud.io/dashboard?id=unicode08_exchange)
